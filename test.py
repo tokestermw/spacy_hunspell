@@ -19,7 +19,7 @@ if __name__ == '__main__':
     import spacy
     from spacy_hunspell import spaCyHunSpell
     nlp = spacy.load('en_core_web_sm')
-    hunspell = spaCyHunSpell('linux')
+    hunspell = spaCyHunSpell(nlp, 'linux')
     nlp.add_pipe(hunspell)
 
     doc = nlp('I can haz cheezeburger.')
