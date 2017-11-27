@@ -6,6 +6,8 @@ from hunspell import HunSpell
 
 from spacy.tokens import Doc, Span, Token
 
+from spacy_hunspell._about import __version__
+
 DEFAULT_DICTIONARY_PATHS = {
     'mac': '/Library/Spelling',
     'linux': '/usr/share/hunspell',
