@@ -53,3 +53,15 @@ For Mac 10.13 High Sierra, you may have to set the C flags ([issue](https://gith
 ```
 CFLAGS=$(pkg-config --cflags hunspell) LDFLAGS=$(pkg-config --libs hunspell) pip install hunspell
 ```
+
+Install the rest of the requirements.
+
+```
+pip install -r requirements.txt
+```
+
+And download at least one spaCy model.
+
+```
+python -m spacy download en_core_web_sm
+```
