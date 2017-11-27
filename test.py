@@ -12,8 +12,8 @@ if __name__ == '__main__':
         os.path.join(LIB_DIR, 'en_US.aff'))
 
     assert hobj.spell('spookie') == False
-    assert hobj.suggest('spookie') == \
-        ['spookier', 'spookiness', 'spook', 'cookie', 'bookie', 'Spokane', 'spoken']
+    assert hobj.suggest('spookie')[:5] == \
+        ['spookier', 'spookiness', 'spook', 'cookie', 'bookie']
 
     # -- spacy pipeline test
     import spacy
@@ -25,5 +25,5 @@ if __name__ == '__main__':
     doc = nlp('I can haz cheezeburger.')
     haz = doc[2]
     assert haz._.hunspell_spell == False
-    assert haz._.hunspell_suggest == \
-        ['ha', 'haze', 'hazy', 'has', 'hat', 'had', 'hag', 'ham', 'hap', 'hay', 'haw', 'ha z']
+    assert haz._.hunspell_suggest[:5] == \
+        ['ha', 'haze', 'hazy', 'has', 'hat']
