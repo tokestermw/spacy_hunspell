@@ -18,8 +18,8 @@ nlp.add_pipe(hunspell)
 
 doc = nlp('I can haz cheezeburger.')
 haz = doc[2]
-haz._.hunspell_spell  # True
-haz._.hunspell_suggest  # []
+haz._.hunspell_spell  # False
+haz._.hunspell_suggest  # ['ha', 'haze', 'hazy', 'has', 'hat', 'had', 'hag', 'ham', 'hap', 'hay', 'haw', 'ha z']
 ```
 
 There are two default locations for Hunspell dictionaries for each platform
