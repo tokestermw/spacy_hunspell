@@ -1,0 +1,15 @@
+general:
+  build_dir: .
+
+machine:
+  python:
+    version: 3.6.3
+
+dependencies:
+  override:
+    - apt-get install python-dev libhunspell-dev
+    - pip install -r requirements.txt
+
+test:
+  override:
+    - python test.py
