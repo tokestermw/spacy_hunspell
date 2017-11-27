@@ -6,7 +6,7 @@ Inspired from [this discussion here](https://github.com/explosion/spaCy/issues/3
 
 ## Usage
 
-Add the spaCyHunspell to the spaCy pipeline.
+Add the spaCyHunSpell to the spaCy pipeline.
 
 ```
 import spacy
