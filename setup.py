@@ -13,13 +13,21 @@ def _read_about():
     return about
 
 
+def _read_readme():
+    with open(os.path.join(ROOT_DIR, 'README.md'), 'r') as f:
+        readme = f.read()
+    return readme
+
+
 if __name__ == '__main__':
     about = _read_about()
+    readme = _read_readme()
 
     setup(
         name='spacy_hunspell',
         version=about['__version__'],
         description='spaCy extension for Hunspell.',
+        long_description=readme,
         url=about['__url__'],
         author=about['__author__'],
         author_email=about['__email__'],
