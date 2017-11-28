@@ -36,18 +36,29 @@ You can find the [English dictionary files here](http://wordlist.aspell.net/dict
 ## Installation
 
 You can install the package directly if you have the prerequisites to
-install Hunspell (see below).
+install Hunspell. If it errors out, manually install Hunspell (see below).
 
 ```
 pip install spacy_hunspell
 ```
 
-Installation is a little tricky for [Hunspell](https://github.com/hunspell/hunspell).
-Make sure to have `python-dev` and `libhunspell-dev` installed
-if on a Linux system. For Mac, `brew install hunspell`.
+Install Hunspell on Linux.
 
-Install the Python bindings for Hunspell ([`pyhunspell`](https://github.com/blatinier/pyhunspell))
-through `pip install hunspell`.
+```
+sudo apt-get install libhunspell-dev
+```
+
+Install Hunspell on Mac.
+
+```
+brew install hunspell
+```
+
+Install the Python bindings for Hunspell ([`pyhunspell`](https://github.com/blatinier/pyhunspell)):
+
+```
+pip install hunspell
+```
 
 For Mac, you may have to add a few steps before pip installing:
 
