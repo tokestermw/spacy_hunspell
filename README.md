@@ -13,7 +13,7 @@ import spacy
 from spacy_hunspell import spaCyHunSpell
 
 nlp = spacy.load('en_core_web_sm')
-hunspell = spaCyHunSpell('mac')
+hunspell = spaCyHunSpell(nlp, 'mac')
 nlp.add_pipe(hunspell)
 
 doc = nlp('I can haz cheezeburger.')
@@ -26,9 +26,9 @@ There are two default locations for Hunspell dictionaries for each platform
 (`mac`, and `linux`). If there are not you can specify the two files manually.
 
 ```
-hunspell = spaCyHunSpell('mac')
-hunspell = spaCyHunSpell('linux')
-hunspell = spaCyHunSpell('en_US.dic', 'en_US.aff')
+hunspell = spaCyHunSpell(nlp, 'mac')
+hunspell = spaCyHunSpell(nlp, 'linux')
+hunspell = spaCyHunSpell(nlp, ('en_US.dic', 'en_US.aff'))
 ```
 
 You can find the [English dictionary files here](http://wordlist.aspell.net/dicts/).
