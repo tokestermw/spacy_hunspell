@@ -25,7 +25,6 @@ class spaCyHunSpell(object):
                 os.path.join(default_path, 'en_US.dic'),
                 os.path.join(default_path, 'en_US.aff'),
             )
-            print(dic_path, aff_path)
         else:
             assert len(path) == 2, 'Include two paths: dic_path and aff_path'
             dic_path, aff_path = path
@@ -37,11 +36,18 @@ class spaCyHunSpell(object):
 
     def __call__(self, doc):
         for token in doc:
-            token._.hunspell_spell = self.hobj.spell(token.text)
+            try:
+                token._.hunspell_spell = self.hobj.spell(token.text)
+            except UnicodeEncodeError:
+                pass
         return doc
 
     def get_suggestion(self, token):
         # TODO: include a lower option?
         # TODO: include suggestion numbers?
         # TODO: include stemmer?
-        return self.hobj.suggest(token.text)
+        try:
+            suggestions = self.hobj.suggest(token.text)
+        except UnicodeEncodeError:
+            suggestions = []
+        return suggestions
