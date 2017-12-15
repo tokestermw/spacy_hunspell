@@ -1,15 +1,12 @@
-general:
-  build_dir: .
+version: 2
 
-dependencies:
-  cache_directories:
-    - ".tox"
-    - ".eggs"
-  pre:
-    - pip install tox tox-pyenv
-    - pyenv local 2.7 3.6
-    - sudo apt-get install libhunspell-dev
-
-test:
-  override:
-    - tox
+jobs:
+  build:
+    working_directory: .
+    docker:
+      - image: themattrix/tox
+    steps:
+      - checkout
+      - run: apt-get update
+      - run: apt-get -y install libhunspell-dev
+      - run: tox
