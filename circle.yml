@@ -1,16 +1,12 @@
-general:
-  build_dir: .
+version: 2
 
-machine:
-  python:
-    version: 3.6.3
-
-dependencies:
-  override:
-    - sudo apt-get install libhunspell-dev
-    - pip install -r requirements.txt
-    - python -m spacy download en_core_web_sm
-
-test:
-  override:
-    - python test.py
+jobs:
+  build:
+    working_directory: .
+    docker:
+      - image: themattrix/tox
+    steps:
+      - checkout
+      - run: apt-get update
+      - run: apt-get -y install libhunspell-dev
+      - run: tox
