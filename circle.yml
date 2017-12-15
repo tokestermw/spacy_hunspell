@@ -6,11 +6,12 @@ machine:
     version: 3.6.3
 
 dependencies:
-  override:
+  pre:
+    - pip install tox==2.9.1
     - sudo apt-get install libhunspell-dev
     - pip install -r requirements.txt
     - python -m spacy download en_core_web_sm
 
 test:
   override:
-    - python test.py
+    - tox
