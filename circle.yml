@@ -1,16 +1,14 @@
 general:
   build_dir: .
 
-machine:
-  python:
-    version: 3.6.3
-
 dependencies:
+  cache_directories:
+    - ".tox"
+    - ".eggs"
   pre:
-    - pip install tox==2.9.1
+    - pip install tox tox-pyenv
+    - pyenv local 2.7 3.6
     - sudo apt-get install libhunspell-dev
-    - pip install -r requirements.txt
-    - python -m spacy download en_core_web_sm
 
 test:
   override:
