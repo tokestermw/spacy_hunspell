@@ -13,12 +13,14 @@ DEFAULT_DICTIONARY_PATHS = {
     'linux': '/usr/share/hunspell',
 }
 
+HUNSPELL_PROFILE = os.environ.get('HUNSPELL_PROFILE', 'linux')
+
 
 class spaCyHunSpell(object):
 
     name = 'hunspell'
 
-    def __init__(self, nlp, path):
+    def __init__(self, nlp, path=HUNSPELL_PROFILE):
         if path in DEFAULT_DICTIONARY_PATHS:
             default_path = DEFAULT_DICTIONARY_PATHS[path]
             dic_path, aff_path = (
