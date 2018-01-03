@@ -3,8 +3,6 @@ from __future__ import unicode_literals
 
 import os
 
-DEFAULT_PATH = os.environ.get('DEFAULT_PATH', 'linux')
-
 
 if __name__ == '__main__':
     # -- spacy pipeline test
@@ -12,7 +10,7 @@ if __name__ == '__main__':
     from spacy_hunspell import spaCyHunSpell
 
     nlp = spacy.load('en_core_web_sm')
-    hunspell = spaCyHunSpell(nlp, DEFAULT_PATH)
+    hunspell = spaCyHunSpell(nlp)
     nlp.add_pipe(hunspell)
 
     # cheeseburger test
