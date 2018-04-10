@@ -1,35 +1,31 @@
 from __future__ import unicode_literals
-
-import os
+from pathlib import Path
 
 from hunspell import HunSpell
 
-from spacy.tokens import Doc, Span, Token
+from spacy.language import Language
+from spacy.tokens import Token
 
 from spacy_hunspell._about import __version__
 
-DEFAULT_DICTIONARY_PATHS = {
-    'mac': '/Library/Spelling',
-    'linux': '/usr/share/hunspell',
-}
 
-HUNSPELL_PROFILE = os.environ.get('HUNSPELL_PROFILE', 'linux')
-
-
-class spaCyHunSpell(object):
+class Hunspell(object):
 
     name = 'hunspell'
 
-    def __init__(self, nlp, path=HUNSPELL_PROFILE):
-        if path in DEFAULT_DICTIONARY_PATHS:
-            default_path = DEFAULT_DICTIONARY_PATHS[path]
-            dic_path, aff_path = (
-                os.path.join(default_path, 'en_US.dic'),
-                os.path.join(default_path, 'en_US.aff'),
-            )
-        else:
-            assert len(path) == 2, 'Include two paths: dic_path and aff_path'
-            dic_path, aff_path = path
+    def __init__(self, nlp: Language, path: str, lang: str='en_US'):
+        path = Path.cwd() / path
+        
+        if not any([nlp, isinstance(nlp, Language)]):
+            raise ValueError('nlp must be of a spaCy Language.') from None
+
+        if not path.exists():
+            raise NotADirectoryError('{} does not exist.'.format(path)) from None
+
+        dic_path, aff_path = (
+            path / '{}.dic'.format(lang),
+            path / '{}.aff'.format(lang),
+        )
 
         self.hobj = HunSpell(dic_path, aff_path)
 

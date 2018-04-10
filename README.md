@@ -1,4 +1,4 @@
-## spacy_hunspell: Hunspell extension for spaCy
+# spacy_hunspell: Hunspell extension for spaCy
 
 This package uses the [spaCy 2.0 extensions](https://spacy.io/usage/processing-pipelines#extensions)
 to add [Hunspell](http://hunspell.github.io) support for spellchecking.
@@ -6,14 +6,25 @@ Inspired from [this discussion here](https://github.com/explosion/spaCy/issues/3
 
 ## Usage
 
-Add the spaCyHunSpell to the spaCy pipeline.
+The default language file is `en_US`. This means that given a `path`, `Hunspell` will search
+for `path/language`.
+
+Download the [dictionaries here](https://cgit.freedesktop.org/libreoffice/dictionaries/tree/). You need both `.dic` and `.aff`.
+
+For example, if you use the `de_DE_frami` dictionary files and you stored them in the `dictionaries` folder in your current working directory, you will have to instantiate Hunspell like so:
 
 ```
+Hunspell(nlp, path='dictionaries', `de_DE_frami`)
+```
+
+### Adding Hunspell to the spaCy pipeline 
+
+```python
 import spacy
-from spacy_hunspell import spaCyHunSpell
+from spacy_hunspell import Hunspell
 
 nlp = spacy.load('en_core_web_sm')
-hunspell = spaCyHunSpell(nlp, 'mac')
+hunspell = Hunspell(nlp, path='dictionaries')  # the directory that your dictionaries are located
 nlp.add_pipe(hunspell)
 
 doc = nlp('I can haz cheezeburger.')
@@ -22,65 +33,40 @@ haz._.hunspell_spell  # False
 haz._.hunspell_suggest  # ['ha', 'haze', 'hazy', 'has', 'hat', 'had', 'hag', 'ham', 'hap', 'hay', 'haw', 'ha z']
 ```
 
-There are two default locations for Hunspell dictionaries for each platform
-(`mac`, and `linux`). If there are not you can specify the two files manually.
-
-```
-hunspell = spaCyHunSpell(nlp, 'mac')
-hunspell = spaCyHunSpell(nlp, 'linux')
-hunspell = spaCyHunSpell(nlp, ('en_US.dic', 'en_US.aff'))
-```
-
-You can find the [English dictionary files here](http://wordlist.aspell.net/dicts/).
-
 ## Installation
 
 You can install the package directly if you have the prerequisites to
 install Hunspell. If it errors out, manually install Hunspell (see below).
 
 ```
-pip install spacy_hunspell
+$ pip install spacy_hunspell
 ```
 
-Install Hunspell on Linux.
+## Dependencies
+
+### Linux
 
 ```
-sudo apt-get install libhunspell-dev
+$ sudo apt-get install libhunspell-dev
+$ pip install hunspell
 ```
 
-Install Hunspell on Mac.
+### macOS
 
-```
-brew install hunspell
-```
-
-Install the Python bindings for Hunspell ([`pyhunspell`](https://github.com/blatinier/pyhunspell)):
-
-```
-pip install hunspell
+```bash
+$ brew install hunspell
+$ export C_INCLUDE_PATH=/usr/local/include/hunspell
+$ ln -s /usr/local/lib/libhunspell-{VERSION_NUMBER}.a /usr/local/lib/libhunspell.a
 ```
 
-For Mac, you may have to add a few steps before pip installing:
+For Mac 10.13 High Sierra, you may have to set the C flags ([issue](https://github.com/blatinier/pyhunspell/issues/33)). The following install may take a while.
 
-```
-export C_INCLUDE_PATH=/usr/local/include/hunspell
-ln -s /usr/local/lib/libhunspell-{VERSION_NUMBER}.a /usr/local/lib/libhunspell.a
-```
-
-For Mac 10.13 High Sierra, you may have to set the C flags ([issue](https://github.com/blatinier/pyhunspell/issues/33)).
-
-```
-CFLAGS=$(pkg-config --cflags hunspell) LDFLAGS=$(pkg-config --libs hunspell) pip install hunspell
+```bash
+$ CFLAGS=$(pkg-config --cflags hunspell) LDFLAGS=$(pkg-config --libs hunspell) pip install -r requirements.txt
 ```
 
-Install the rest of the requirements.
+Download at least one spaCy model.
 
-```
-pip install -r requirements.txt
-```
-
-And download at least one spaCy model.
-
-```
-python -m spacy download en_core_web_sm
+```bash
+$ python -m spacy download en_core_web_sm
 ```
