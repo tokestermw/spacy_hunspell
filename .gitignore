@@ -3,3 +3,6 @@ __pycache__
 /dist/
 /*.egg-info
 .tox
+.pytest_cache
+Pipfile*
+dictionaries
