@@ -47,8 +47,7 @@ $ pip install spacy_hunspell
 ### Linux
 
 ```
-# sudo apt-get install libhunspell-dev
-
+$ sudo apt-get install libhunspell-dev
 $ pip install hunspell
 ```
 
