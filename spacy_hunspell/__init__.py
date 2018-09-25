@@ -33,8 +33,10 @@ class spaCyHunSpell(object):
 
         self.hobj = HunSpell(dic_path, aff_path)
 
-        Token.set_extension('hunspell_spell', default=None)
-        Token.set_extension('hunspell_suggest', getter=self.get_suggestion)
+        if not Token.has_extension('hunspell_spell'):
+            Token.set_extension('hunspell_spell', default=None)
+        if not Token.has_extension('hunspell_suggest'):
+            Token.set_extension('hunspell_suggest', getter=self.get_suggestion)
 
     def __call__(self, doc):
         for token in doc:
