@@ -1,2 +1,2 @@
-hunspell==0.5.0
+hunspell>=0.5.0
 spacy>=2.0.0

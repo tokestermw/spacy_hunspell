@@ -35,7 +35,7 @@ if __name__ == '__main__':
         packages=find_packages(),
         install_requires=[
             'spacy>=2.0.0',
-            'hunspell==0.5.0',
+            'hunspell>=0.5.0',
         ],
         zip_safe=False,
     )
