@@ -10,11 +10,13 @@ Add the spaCyHunSpell to the spaCy pipeline.
 
 ```
 import spacy
+from spacy.language import Language
 from spacy_hunspell import spaCyHunSpell
 
 nlp = spacy.load('en_core_web_sm')
 hunspell = spaCyHunSpell(nlp, 'mac')
-nlp.add_pipe(hunspell)
+Language.component("hunspell")(hunspell)
+nlp.add_pipe("hunspell")
 
 doc = nlp('I can haz cheezeburger.')
 haz = doc[2]
@@ -32,6 +34,7 @@ hunspell = spaCyHunSpell(nlp, ('en_US.dic', 'en_US.aff'))
 ```
 
 You can find the [English dictionary files here](http://wordlist.aspell.net/dicts/).
+You can find the [dictionary files for other languages here](https://github.com/LibreOffice/dictionaries).
 
 ## Installation
 
